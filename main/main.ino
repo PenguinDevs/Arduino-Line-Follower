@@ -1,15 +1,16 @@
-#include "hardware/pins.hpp"
-#include "hardware/infrared.hpp"
+#include "pins.hpp"
+#include "infrared.hpp"
+#include "debugger.hpp"
 
 hardware::infrared::InfraredSensor sensorL(hardware::pins::kInfraredLPin);
+hardware::infrared::InfraredSensor sensorC(hardware::pins::kInfraredCPin);
+hardware::infrared::InfraredSensor sensorR(hardware::pins::kInfraredRPin);
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-
-  Serial.begin(9600);
+  firmware::debugger::initialise();
 }
 
 void loop() {
-  Serial.print(sensorL.read());
+  firmware::debugger::debug(String(sensorL.read()));
   delay(100);
 }

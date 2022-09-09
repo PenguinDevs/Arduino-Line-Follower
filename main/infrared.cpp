@@ -1,12 +1,19 @@
 #include "Arduino.h"
 #include "infrared.hpp"
 
-hardware::infrared::InfraredSensor::InfraredSensor(int pinInput) {
+using namespace hardware::infrared;
+
+InfraredSensor::InfraredSensor(int pinInput) {
   this->pinInput = pinInput;
 
   pinMode(pinInput, INPUT);
 }
 
-int hardware::infrared::InfraredSensor::read() {
-  return digitalRead(pinInput);
+InfraredState InfraredSensor::read() {
+  switch (digitalRead(pinInput)) {
+    case HIGH:
+      return InfraredState::kWhite;
+    case LOW:
+      return InfraredState::kBlack;
+  }
 }

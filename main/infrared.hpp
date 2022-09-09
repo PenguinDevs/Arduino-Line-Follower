@@ -2,15 +2,15 @@
 
 namespace hardware::infrared {
 
-// enum class InfraredStates {
-//   kBlack,
-//   kWhite
-// }
+enum InfraredState {
+  kBlack,
+  kWhite
+};
 
 class InfraredSensor {
  public:
   explicit InfraredSensor(int pinInput);
-  int read();
+  InfraredState read();
  private:
   int pinInput;
 };
