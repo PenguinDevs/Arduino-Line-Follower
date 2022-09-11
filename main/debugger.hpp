@@ -15,5 +15,17 @@ enum LoggingLevel {
 void log(LoggingLevel loggingLevel, String message);
 void debug(String message);
 void info(String message);
+void warn(String message);
+
+enum LoggingMode {
+  kGeneral,
+  kGeneralWDebug,
+  kInfrared
+};
+
+// extern enum LoggingMode activeLoggingMode;
+
+void changeLoggingMode(LoggingMode loggingMode);
+void nextLoggingMode();
 
 }  // namespace firmware::debugger
