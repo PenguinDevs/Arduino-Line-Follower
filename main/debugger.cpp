@@ -16,6 +16,7 @@ const int kLoggingModeCount = 3;
 //   {kInfraredTriadInputWError}
 // };
 
+
 void firmware::debugger::initialise() {
   Serial.begin(9600);
 
