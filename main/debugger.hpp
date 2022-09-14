@@ -10,7 +10,8 @@ enum LoggingLevel {
   kWarning,
   // Data from the 3 infrared sensors, plus the error value from reaching a
   // straight line.
-  kInfraredTriadInputWError
+  kInfraredTriadInputWError,
+  kMotorVelocities
 };
 void log(LoggingLevel loggingLevel, String message);
 void debug(String message);
@@ -20,7 +21,8 @@ void warn(String message);
 enum LoggingMode {
   kGeneral,
   kGeneralWDebug,
-  kInfrared
+  kInfrared,
+  kMotors
 };
 
 // extern enum LoggingMode activeLoggingMode;

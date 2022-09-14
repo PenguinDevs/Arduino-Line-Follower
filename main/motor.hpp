@@ -13,7 +13,7 @@ class Motor {
   Motor() = default;
   explicit Motor(int pinInput1, int pinInput2, int pinPWM, bool invert);
   void changeState(MotorState motorState);
-  void setVelocity(unsigned int velocity);
+  void setVelocity(int velocity);
  private:
   int pinInput1;
   int pinInput2;
@@ -27,7 +27,7 @@ class Motor {
 class MotorPair {
  public:
   MotorPair(const Motor &motorL, const Motor &motorR);
-  void setVelocity(unsigned int velocity);
+  void setVelocity(int velocity);
   void setSteer(float direction);
  private:
   // How??? https://stackoverflow.com/questions/47897253/error-no-matching-function-to-call-for-with-class-as-attribute-c

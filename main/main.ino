@@ -34,7 +34,8 @@ void setup() {
 
 void loop() {
   hardware::infrared::InfraredState* infraredTriadData = sensorsTriad.read();
-  firmware::debugger::debug(
+  firmware::debugger::log(
+      firmware::debugger::LoggingLevel::kInfraredTriadInputWError,
       String(infraredTriadData[0])
       + String(infraredTriadData[1])
       + String(infraredTriadData[2]));
@@ -66,6 +67,7 @@ void loop() {
   motorPair.setVelocity(255);
 
 
-  // firmware::debugger::nextLoggingMode();
+//   firmware::debugger::nextLoggingMode();
+  firmware::command::pollSerial();
   delay(100);
 }

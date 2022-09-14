@@ -5,7 +5,7 @@ using namespace firmware::debugger;
 
 LoggingMode activeLoggingMode = LoggingMode::kGeneral;
 
-const int kLoggingModeCount = 3;
+const int kLoggingModeCount = 4;
 
 // TODO: Figure out how to print logging levels depending on logging mode using
 // a lookup table.
@@ -51,6 +51,13 @@ void firmware::debugger::log(LoggingLevel loggingLevel, String message) {
     case LoggingMode::kInfrared:
       if (
         loggingLevel != LoggingLevel::kInfraredTriadInputWError
+      ) {
+        return;
+      }
+      break;
+    case LoggingMode::kMotors:
+      if (
+        loggingLevel != LoggingLevel::kMotorVelocities
       ) {
         return;
       }
