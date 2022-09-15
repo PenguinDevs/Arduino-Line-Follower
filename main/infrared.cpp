@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include "infrared.hpp"
+#include "debugger.hpp"
 
 using namespace hardware::infrared;
 
@@ -29,8 +30,6 @@ InfraredSensorsTriad::InfraredSensorsTriad(
   this->sensorInfraredR = sensorInfraredR;
 }
 
-// Not sure how to return a tuple let alone an array, so a string with the
-// content will be returned instead.
 InfraredState* InfraredSensorsTriad::read() {
   // static InfraredState triadData[3] = {
   //   sensorInfraredL.read(),
@@ -43,8 +42,29 @@ InfraredState* InfraredSensorsTriad::read() {
   triadData[2] = sensorInfraredR.read();
 
   return triadData;
+}
 
-  // return String(sensorInfraredL.read())
-  //     + String(sensorInfraredC.read())
-  //     + String(sensorInfraredR.read());
+int InfraredSensorsTriad::getError() {
+  hardware::infrared::InfraredState* infraredTriadData = read();
+
+  firmware::debugger::log(
+      firmware::debugger::LoggingLevel::kInfraredTriadInputWError,
+      String(infraredTriadData[0])
+      + String(infraredTriadData[1])
+      + String(infraredTriadData[2]));
+
+  if (infraredTriadData[1] == InfraredState::kBlack) {
+    // Middle sensor detects black.
+    // The middle sensor is what we care the most, so it is the first condition
+    // that we want to check for.
+    lastBlackSensed = 0;
+  } else if (infraredTriadData[0] == InfraredState::kBlack) {
+    // Left sensor detects black.
+    lastBlackSensed = -1;
+  } else if (infraredTriadData[2] == InfraredState::kBlack) {
+    // Right sensor detects black.
+    lastBlackSensed = 1;
+  }  // else ignore and leave lastBlackSensed the way it is.
+
+  return lastBlackSensed;
 }
