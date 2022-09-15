@@ -33,41 +33,25 @@ void setup() {
 }
 
 void loop() {
-  hardware::infrared::InfraredState* infraredTriadData = sensorsTriad.read();
-  firmware::debugger::log(
-      firmware::debugger::LoggingLevel::kInfraredTriadInputWError,
-      String(infraredTriadData[0])
-      + String(infraredTriadData[1])
-      + String(infraredTriadData[2]));
+  int error = sensorsTriad.getError();
 
-//   if (infraredTriadData[0] == hardware::infrared::kWhite) {
-//     motorR.changeState(hardware::motor::Forward);
-//   } else {
-//     motorR.changeState(hardware::motor::Off);
-//   }
-//   if (infraredTriadData[2] == hardware::infrared::kWhite) {
-//     motorR.changeState(hardware::motor::Forward);
-//   } else {
-//     motorR.changeState(hardware::motor::Off);
-//   }
-
-
-//   for (int i=-255; i < 256; i++) {
-//     motorL.setVelocity(i);
-//     motorR.setVelocity(-i);
-//     delay(50);
-//   }
-//   for (int i=255; i > -256; i--) {
-//     motorL.setVelocity(i);
-//     motorR.setVelocity(-i);
-//     delay(50);
-//   }
-
+  motorPair.setSteer(error * 0.3);
 
   motorPair.setVelocity(255);
 
+  // for (int i=-255; i < 256; i++) {
+  //   motorL.setVelocity(i);
+  //   motorR.setVelocity(-i);
+  //   delay(50);
+  // }
+  // for (int i=255; i > -256; i--) {
+  //   motorL.setVelocity(i);
+  //   motorR.setVelocity(-i);
+  //   delay(50);
+  // }
 
-//   firmware::debugger::nextLoggingMode();
+
+
   firmware::command::pollSerial();
   delay(100);
 }

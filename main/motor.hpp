@@ -30,7 +30,6 @@ class MotorPair {
   void setVelocity(int velocity);
   void setSteer(float direction);
  private:
-  // How??? https://stackoverflow.com/questions/47897253/error-no-matching-function-to-call-for-with-class-as-attribute-c
   Motor motorL;
   Motor motorR;
 
