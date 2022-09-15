@@ -7,8 +7,8 @@ LoggingMode activeLoggingMode = LoggingMode::kGeneral;
 
 const int kLoggingModeCount = 4;
 
-// TODO: Figure out how to print logging levels depending on logging mode using
-// a lookup table.
+// TODO: Figure out how to print different logging levels depending on logging
+// mode using a lookup table.
 // // The column size isn't actually 3 :(
 // const LoggingLevel LoggingModeLevels[3][3] = {
 //   {kInfo, kWarning},
@@ -21,6 +21,17 @@ void firmware::debugger::initialise() {
   Serial.begin(9600);
 
   changeLoggingMode(LoggingMode::kGeneral);
+
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void firmware::debugger::led_blink(int amount) {
+  for (int i = 0; i < amount; i++) {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(50);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(50);
+  }
 }
 
 void firmware::debugger::log(LoggingLevel loggingLevel, String message) {

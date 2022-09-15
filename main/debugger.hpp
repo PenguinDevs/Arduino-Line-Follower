@@ -4,6 +4,9 @@ namespace firmware::debugger {
 
 void initialise();
 
+void led_blink(int amount);
+
+// Severity of a particular log.
 enum LoggingLevel {
   kDebug,
   kInfo,
@@ -18,6 +21,8 @@ void debug(String message);
 void info(String message);
 void warn(String message);
 
+
+// Type of output to display from Serial.
 enum LoggingMode {
   kGeneral,
   kGeneralWDebug,
