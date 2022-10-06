@@ -44,7 +44,7 @@ InfraredState* InfraredSensorsTriad::read() {
   return triadData;
 }
 
-int InfraredSensorsTriad::getError() {
+int InfraredSensorsTriad::getDirection() {
   hardware::infrared::InfraredState* infraredTriadData = read();
 
   firmware::debugger::log(

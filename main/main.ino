@@ -4,6 +4,7 @@
 
 #include "debugger.hpp"
 #include "serial_command.hpp"
+#include "controller.hpp"
 
 hardware::infrared::InfraredSensor sensorL(hardware::pins::kPinInfraredL);
 hardware::infrared::InfraredSensor sensorC(hardware::pins::kPinInfraredC);
@@ -25,6 +26,7 @@ hardware::motor::Motor motorR(
     true);
 hardware::motor::MotorPair motorPair(motorL, motorR);
 
+firmware::controller::Basic controller(0.3, 0.8);
 
 void setup() {
   firmware::debugger::initialise();
@@ -33,9 +35,10 @@ void setup() {
 }
 
 void loop() {
-  int error = sensorsTriad.getError();
+  int error = sensorsTriad.getDirection();
 
-  motorPair.setSteer(error * 0.3);
+  motorPair.setSteer(controller.update(error));
+//   motorPair.setSteer(error * 0.3);
 
   motorPair.setVelocity(255);
 
@@ -49,7 +52,6 @@ void loop() {
   //   motorR.setVelocity(-i);
   //   delay(50);
   // }
-
 
 
   firmware::command::pollSerial();
