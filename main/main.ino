@@ -23,7 +23,7 @@ hardware::motor::Motor motorR(
     hardware::pins::kPinMotorR1,
     hardware::pins::kPinMotorR2,
     hardware::pins::kPinMotorRPWM,
-    true);
+    false);
 hardware::motor::MotorPair motorPair(motorL, motorR);
 
 firmware::controller::Basic controller(0.3, 0.8);
@@ -37,10 +37,10 @@ void setup() {
 void loop() {
   int error = sensorsTriad.getDirection();
 
-  motorPair.setSteer(controller.update(error));
-//   motorPair.setSteer(error * 0.3);
+  // motorPair.setSteer(controller.update(error));
+  motorPair.setSteer(error * 0.1);
 
-  motorPair.setVelocity(255);
+  motorPair.setVelocity(120);
 
   // for (int i=-255; i < 256; i++) {
   //   motorL.setVelocity(i);
@@ -55,5 +55,5 @@ void loop() {
 
 
   firmware::command::pollSerial();
-  delay(100);
+  delay(0);
 }
