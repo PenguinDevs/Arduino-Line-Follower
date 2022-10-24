@@ -44,27 +44,43 @@ InfraredState* InfraredSensorsTriad::read() {
   return triadData;
 }
 
-int InfraredSensorsTriad::getDirection() {
+float InfraredSensorsTriad::getDirection() {
   hardware::infrared::InfraredState* infraredTriadData = read();
 
   firmware::debugger::log(
       firmware::debugger::LoggingLevel::kInfraredTriadInputWError,
       String(infraredTriadData[0])
       + String(infraredTriadData[1])
-      + String(infraredTriadData[2]));
+      + String(infraredTriadData[2])
+      +"|"
+      + String(lastBlackSensed));
+
+  // if (infraredTriadData[1] == InfraredState::kBlack) {
+  //   // Middle sensor detects black.
+  //   // The middle sensor is what we care the most, so it is the first condition
+  //   // that we want to check for.
+  //   lastBlackSensed = 0;
+  // } else if (infraredTriadData[0] == InfraredState::kBlack) {
+  //   // Left sensor detects black.
+  //   lastBlackSensed = -1;
+  // } else if (infraredTriadData[2] == InfraredState::kBlack) {
+  //   // Right sensor detects black.
+  //   lastBlackSensed = 1;
+  // }  // else ignore and leave lastBlackSensed the way it is.
 
   if (infraredTriadData[1] == InfraredState::kBlack) {
     // Middle sensor detects black.
-    // The middle sensor is what we care the most, so it is the first condition
-    // that we want to check for.
     lastBlackSensed = 0;
+    return 0;
   } else if (infraredTriadData[0] == InfraredState::kBlack) {
     // Left sensor detects black.
     lastBlackSensed = -1;
+    return -1;
   } else if (infraredTriadData[2] == InfraredState::kBlack) {
     // Right sensor detects black.
     lastBlackSensed = 1;
-  }  // else ignore and leave lastBlackSensed the way it is.
-
-  return lastBlackSensed;
+    return 1;
+  } else {
+    return lastBlackSensed * 2;
+  }
 }
