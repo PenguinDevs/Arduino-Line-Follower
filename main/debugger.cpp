@@ -18,7 +18,7 @@ const int kLoggingModeCount = 4;
 
 
 void firmware::debugger::initialise() {
-  Serial.begin(9600);
+  Serial.begin(9600);  // 1000000
 
   changeLoggingMode(LoggingMode::kGeneral);
 
