@@ -81,6 +81,6 @@ float InfraredSensorsTriad::getDirection() {
     lastBlackSensed = 1;
     return 1;
   } else {
-    return lastBlackSensed * 2.5;
+    return lastBlackSensed * 3;
   }
 }

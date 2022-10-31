@@ -52,16 +52,16 @@ firmware::controller::PID controller(0.325, 0, 0, 1, -1, true);  // 255 vel, * 0
 void setup() {
   firmware::debugger::initialise();
   firmware::debugger::changeLoggingMode(
-      firmware::debugger::LoggingMode::kGeneralWDebug);
+      firmware::debugger::LoggingMode::kMotors);
 }
 
 void loop() {
   float error = sensorsTriad.getDirection();
 
-  motorPair.setSteer(controller.update(error * 0.21));
+  motorPair.setSteer(controller.update(error * 0.19));
 //   motorPair.setSteer(error * 0.4);
 
-  motorPair.setVelocity(255);
+  motorPair.setVelocity(120);
 
   firmware::command::pollSerial();
   delay(0);
