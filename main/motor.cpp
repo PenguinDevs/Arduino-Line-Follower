@@ -78,8 +78,14 @@ void MotorPair::setSteer(float direction) {
 }
 
 void MotorPair::setMovement() {
-  int velocityL = static_cast<int>(velocity * (1+direction*2));
-  int velocityR = static_cast<int>(velocity * (1-direction*2));
+  int velocityL = constrain(
+    static_cast<int>(velocity * (1+direction*2)),
+    0,
+    velocity);
+  int velocityR = constrain(
+    static_cast<int>(velocity * (1-direction*2)),
+    0,
+    velocity);
 
   motorL.setVelocity(velocityL);
   motorR.setVelocity(velocityR);
