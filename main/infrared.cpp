@@ -55,19 +55,6 @@ float InfraredSensorsTriad::getDirection() {
       +"|"
       + String(lastBlackSensed));
 
-  // if (infraredTriadData[1] == InfraredState::kBlack) {
-  //   // Middle sensor detects black.
-  //   // The middle sensor is what we care the most, so it is the first condition
-  //   // that we want to check for.
-  //   lastBlackSensed = 0;
-  // } else if (infraredTriadData[0] == InfraredState::kBlack) {
-  //   // Left sensor detects black.
-  //   lastBlackSensed = -1;
-  // } else if (infraredTriadData[2] == InfraredState::kBlack) {
-  //   // Right sensor detects black.
-  //   lastBlackSensed = 1;
-  // }  // else ignore and leave lastBlackSensed the way it is.
-
   if (infraredTriadData[1] == InfraredState::kBlack) {
     // Middle sensor detects black.
     lastBlackSensed = 0;
@@ -81,6 +68,6 @@ float InfraredSensorsTriad::getDirection() {
     lastBlackSensed = 1;
     return 1;
   } else {
-    return lastBlackSensed * 3;
+    return lastBlackSensed * 4;
   }
 }

@@ -44,7 +44,7 @@ hardware::motor::MotorPair motorPair(motorL, motorR);
 // firmware::controller::PID controller(0.375, 0, 0, 1, -1, true);  // 200 vel, * 0.2 error SMOOTH
 // firmware::controller::PID controller(0.325, 0, 0, 1, -1, true);  // 255 vel, * 0.21 error FAST SMOOTH * 2.5 out
 // firmware::controller::PID controller(0.6, 0, 0, 1, -1, true);  // 100 vel, * 0.08 error FAST SMOOTH * 3.5 out NEW BATTERY
-firmware::controller::PID controller(0.325, 0, 0, 1, -1, true);  // 255 vel, * 0.21 error FAST SMOOTH * 2.5 out NEW BATTERY
+firmware::controller::PID controller(0.38, 0, 0, 1, -1, true);  // 120 vel, * 0.17 error FAST SMOOTH * 4 out NEW BATTERY
 
 
 
@@ -52,13 +52,13 @@ firmware::controller::PID controller(0.325, 0, 0, 1, -1, true);  // 255 vel, * 0
 void setup() {
   firmware::debugger::initialise();
   firmware::debugger::changeLoggingMode(
-      firmware::debugger::LoggingMode::kMotors);
+      firmware::debugger::LoggingMode::kGeneral);
 }
 
 void loop() {
   float error = sensorsTriad.getDirection();
 
-  motorPair.setSteer(controller.update(error * 0.19));
+  motorPair.setSteer(controller.update(error * 0.17));
 //   motorPair.setSteer(error * 0.4);
 
   motorPair.setVelocity(120);
